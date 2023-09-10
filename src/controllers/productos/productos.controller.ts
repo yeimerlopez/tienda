@@ -1,4 +1,5 @@
-import { Controller,Get, Post, Body, Put, Param, Delete} from '@nestjs/common';
+import { Controller,Get, Post, Body, Put, Param, Delete, HttpCode, HttpStatus,
+        Res} from '@nestjs/common';
 
 @Controller('productos')
 export class ProductosController {
@@ -50,6 +51,20 @@ export class ProductosController {
         }
     }
     
+
+//////////////////////////////////////////////////////////////////
+/////////////// Ejm Uso codigo estado personalizado///////////////
+
+@Get(':productoId')
+// no puse getProduct por que se sobre entiende
+@HttpCode(HttpStatus.ACCEPTED)
+getOne(@Param('productoId') productoId: string){       
+    return {
+        mensaje:`producto ${productoId}`
+    };
+
+}
+
 
 
 }
