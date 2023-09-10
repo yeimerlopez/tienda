@@ -14,9 +14,16 @@ export class MarcasController {
         @Query('marca') marca: string,
         )
         {
-        return `products: limit=> ${limit} offset=> ${offset} marca=> ${marca}`;
+        return {
+            mensaje: `products: limit=> ${limit} offset=> ${offset} marca=> ${marca}`
+        };
         }
 
 
 
+
+
 }
+
+
+
