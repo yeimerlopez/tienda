@@ -1,69 +1,53 @@
-import { Controller,Get, Post, Body, Put, Param, Delete, HttpCode, HttpStatus,
-        Res} from '@nestjs/common';
+import {
+    Controller, Get, Post, Body, Put, Param, Delete, HttpCode, HttpStatus, Query, Res,
+} from '@nestjs/common';
+
+import { Response } from 'express';
+
+import { ProductosService } from './../../services/productos/productos.service';
 
 @Controller('productos')
 export class ProductosController {
+    constructor(private productosService: ProductosService) { }
 
     @Get()
-    nuevoEndPoint(){
-        return 'soy el endpoint desde mi propia carpeta'
+    getProductos(
+        @Query('limit') limit = 100,
+        @Query('offset') offset = 0,
+        @Query('marca') marca: string,
+    ){
+        return this.productosService.findAll();
     }
 
-//////////////////////////////////////////////////////////////
-//////////////Ejemplo de endPoints con POST crear////////////
-   /* @Post()
-    create(){
-        return {
-            mensaje: 'este es mi mensaje en el json',
-            mensaje2: 'Este es mi mensaje 2'
-        };
+    @Get(':productoId')
+    @HttpCode(HttpStatus.ACCEPTED)
+    getOne(@Param('productoId') productoId: string) {
+        return this.productosService.findOne(+productoId);
     }
-    */
+
+
 
     @Post()
-    create(@Body() payload: any){
-        return {
-            mensaje: 'Cristo te Ama.',
-            payload, // para imprimir lo que me enviaron en el Body
-        };
+    create(@Body() payload: any) {
+        return this.productosService.create(payload);
     }
 
-/////////////////////////////////////////////////////////////////
-     /////////////Ejemplo Put-->actualizar/////////////////////
 
     @Put(':id')
-    update(@Param('id') id:number, @Body() payload: any){
-        return{
-            id,
-            payload,
-
-        };
+    update(@Param('id') id: string, @Body() payload: any) {
+        return this.productosService.update(+id, payload);
     }
-
-////////////////////////////////////////////////////////////////
-   //////////////Ejm DELETE --> Eliminar//////////////////////
 
 
     @Delete(':id')
-    borrar(@Param('id') id:number){
+    borrar(@Param('id') id: number) {
         return {
             mensaje: "borrado"
         }
     }
-    
 
-//////////////////////////////////////////////////////////////////
-/////////////// Ejm Uso codigo estado personalizado///////////////
 
-@Get(':productoId')
-// no puse getProduct por que se sobre entiende
-@HttpCode(HttpStatus.ACCEPTED)
-getOne(@Param('productoId') productoId: string){       
-    return {
-        mensaje:`producto ${productoId}`
-    };
 
-}
 
 
 

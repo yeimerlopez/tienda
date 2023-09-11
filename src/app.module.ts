@@ -7,6 +7,7 @@ import { ClientesController } from './controllers/clientes/clientes.controller';
 import { MarcasController } from './controllers/marcas/marcas.controller';
 import { OrdenesController } from './controllers/ordenes/ordenes.controller';
 import { UsuariosController } from './controllers/usuarios/usuarios.controller';
+import { ProductosService } from './services/productos/productos.service';
 
 
 
@@ -14,6 +15,6 @@ import { UsuariosController } from './controllers/usuarios/usuarios.controller';
   imports: [],
   controllers: [AppController, ProductosController, CategoriasController, ClientesController,
       MarcasController, OrdenesController,UsuariosController],
-  providers: [AppService],
+  providers: [AppService, ProductosService],
 })
 export class AppModule {}
