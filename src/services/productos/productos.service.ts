@@ -1,5 +1,6 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Producto } from './../../entities/producto.entity';
+import {CreateProductDto, UpdateProductDto} from './../../dtos/productos.dto'
 
 @Injectable()
 export class ProductosService {
@@ -13,7 +14,7 @@ export class ProductosService {
         descripcion: 'aca va una descripcion..',
         precio: 123,
         stock: 100,
-        image: '',
+        imagen: '',
     },
     ];
 
@@ -24,11 +25,16 @@ export class ProductosService {
 
     // Metodo buscar un producto
     findOne(id: number) {
-        return this.productos.find((item) => item.id === id);
+        const producto = this.productos.find((item) => item.id === id);
+        if (!producto) {
+            throw new NotFoundException(`Producto #${id} no Existe!`); 
+        }
+        return producto;
     }
 
 
-    create(payload: any) {
+    create(payload: CreateProductDto) {
+        console.log(payload)
         this.contadorId = this.contadorId + 1;
         const nuevoProducto = {
             id: this.contadorId,
@@ -39,9 +45,9 @@ export class ProductosService {
         return nuevoProducto;
     }
 
-////////// Metodo actualizar ok  ///////////////
 
-    update(id: number, payload: any) {
+
+    update(id: number, payload: UpdateProductDto) {
         const producto = this.findOne(id);
         if (producto){
             const index = this.productos.findIndex((item) => item.id === id);
@@ -57,15 +63,16 @@ export class ProductosService {
 
 
 //////////// Metodo Borrar  ////////////////////
-    delete(id: number) {
-        const product = this.findOne(id)
-        const productIndex = this.productos.indexOf(product)
-        this.productos.splice(productIndex, 1)
 
-        return product
+    Remove(id: number){
+        const index = this.productos.findIndex((item) => item.id === id);
+        if (index === -1) {
+            throw new NotFoundException(`Producto #${id} no Existe!`);
+            
+        }
+        this.productos.splice(index, 1);
     }
-////////////////////////////////////////
-////////////// fin los pla/////////////
+
 
 
 }
