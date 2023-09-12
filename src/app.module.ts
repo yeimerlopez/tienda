@@ -9,11 +9,12 @@ import { OrdenesController } from './controllers/ordenes/ordenes.controller';
 import { UsuariosController } from './controllers/usuarios/usuarios.controller';
 import { ProductosService } from './services/productos/productos.service';
 import { ClientesService } from './services/clientes/clientes.service';
+import { UsuariosModule } from './usuarios/usuarios.module';
 
 
 
 @Module({
-  imports: [],
+  imports: [UsuariosModule],
   controllers: [AppController, ProductosController, CategoriasController, ClientesController,
       MarcasController, OrdenesController,UsuariosController],
   providers: [AppService, ProductosService, ClientesService],
