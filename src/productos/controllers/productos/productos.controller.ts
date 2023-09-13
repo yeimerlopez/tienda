@@ -1,12 +1,12 @@
 import {
     Controller, Get, Post, Body, Put, Param, Delete, HttpCode, HttpStatus, Query, Res,
-    /*arseIntPipe*/} from '@nestjs/common';
+    /*ParseIntPipe*/} from '@nestjs/common';
 
 import { Response } from 'express';
 
-import { ProductosService } from './../../services/productos/productos.service';
-import {ParseIntPipe} from '../../common/parse-int/parse-int.pipe';
-import {CreateProductDto, UpdateProductDto} from './../../dtos/productos.dto'
+import { ProductosService } from '../../services/productos/productos.service';
+import {ParseIntPipe} from '../../../common/parse-int/parse-int.pipe';
+import {CreateProductDto, UpdateProductDto} from '../../dtos/productos.dto'
 
 @Controller('productos')
 export class ProductosController {
@@ -35,7 +35,7 @@ export class ProductosController {
 
 
     @Put(':id')
-    update(@Param('id') id: string, @Body() payload: any) {
+    update(@Param('id') id: string, @Body() payload: UpdateProductDto) {
         return this.productosService.update(+id, payload);
     }
 

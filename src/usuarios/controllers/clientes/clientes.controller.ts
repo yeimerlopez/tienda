@@ -4,9 +4,9 @@ import {
 
 import { Response } from 'express';
 
-import { ClientesService } from './../../services/clientes/clientes.service';
-import {ParseIntPipe} from '../../common/parse-int/parse-int.pipe';
-import {CreateClienteDto, UpdateClienteDto} from './../../dtos/clientes.dto'
+import { ClientesService } from '../../services/clientes/clientes.service';
+import {ParseIntPipe} from '../../../common/parse-int/parse-int.pipe';
+import {CreateClienteDto, UpdateClienteDto} from '../../dtos/clientes.dto'
 
 @Controller('clientes')
 export class ClientesController {
@@ -35,7 +35,7 @@ export class ClientesController {
 
 
     @Put(':id')
-    update(@Param('id') id: string, @Body() payload: any) {
+    update(@Param('id') id: string, @Body() payload: UpdateClienteDto) {
         return this.clientesService.update(+id, payload);
     }
 
