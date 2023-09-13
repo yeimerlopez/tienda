@@ -3,11 +3,12 @@ import { ClientesService } from './services/clientes/clientes.service';
 import { ClientesController } from './controllers/clientes/clientes.controller';
 import { UsuariosService } from './services/usuarios/usuarios.service';
 import { UsuariosController } from './controllers/usuarios/usuarios.controller';
+import { ProductosModule } from 'src/productos/productos.module';
 
 
 
 @Module({
-    imports: [],
+    imports: [ProductosModule],
     controllers: [ClientesController,UsuariosController],
     providers: [ClientesService, UsuariosService]
 })

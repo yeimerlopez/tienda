@@ -7,5 +7,6 @@ import { MarcasService } from './services/marcas/marcas.service';
 @Module({
     controllers:[ProductosController, MarcasController],
     providers:[ProductosService, MarcasService],
+    exports: [ProductosService],
 })
 export class ProductosModule {}

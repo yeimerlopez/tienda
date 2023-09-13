@@ -27,6 +27,17 @@ export class UsuariosController {
         return this.usuariosService.findOne(id);
     }
 
+/////
+
+    @Get(':id/ordenes')
+    getOrdenes(@Param('id', ParseIntPipe) id: number) {
+        return this.usuariosService.getOrderByUser(id);
+    }
+
+
+
+////
+
     @Post()
     create(@Body() payload: CreateUsuarioDto) {
         return this.usuariosService.create(payload);
