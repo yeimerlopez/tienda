@@ -3,11 +3,14 @@ import {
     /*ParseIntPipe*/} from '@nestjs/common';
 
 import { Response } from 'express';
+import { ApiTags } from '@nestjs/swagger';
 
 import { ClientesService } from '../../services/clientes/clientes.service';
 import {ParseIntPipe} from '../../../common/parse-int/parse-int.pipe';
 import {CreateClienteDto, UpdateClienteDto} from '../../dtos/clientes.dto'
 
+
+@ApiTags('clientes')
 @Controller('clientes')
 export class ClientesController {
     constructor(private clientesService: ClientesService) { }
