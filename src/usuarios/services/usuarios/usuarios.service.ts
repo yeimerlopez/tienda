@@ -1,5 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 // import { Usuario } from 'src/usuarios/entities/usuario.entity';
+import { ConfigService } from '@nestjs/config';
 
 import { Usuario } from '../../entities/usuario.entity';
 import { Orden } from 'src/usuarios/entities/orden.entity';
@@ -9,11 +10,16 @@ import { ProductosService } from 'src/productos/services/productos/productos.ser
 
 
 
+
+
 @Injectable()
 export class UsuariosService { 
 
-    constructor(private productosService: ProductosService){ }
-
+    constructor(
+        private productosService: ProductosService,
+        private configService: ConfigService,
+        
+        ){ }
 
     private counterId = 1;
     private usuarios: Usuario[] = [
@@ -26,6 +32,10 @@ export class UsuariosService {
     ];
 
     findAll() {
+
+        const apikey = this.configService.get('API_KEY');
+        const dbName  = this.configService.get('DATABASE_NAME');
+        console.log(apikey, dbName);
         return this.usuarios;
     }
 
